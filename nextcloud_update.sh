@@ -680,18 +680,18 @@ then
 fi
 
 # Backup PostgreSQL
-if is_this_installed postgresql-common
-then
-    cd /tmp
-    if sudo -u postgres psql -c "SELECT 1 AS result FROM pg_database WHERE datname='$NCCONFIGDB'" | grep "1 row" > /dev/null
-    then
-        print_text_in_color "$ICyan" "Doing pgdump of $NCCONFIGDB..."
-        check_command sudo -u postgres pg_dump "$NCCONFIGDB"  > "$BACKUP"/nextclouddb.sql
-    else
-        print_text_in_color "$ICyan" "Doing pgdump of all databases..."
-        check_command sudo -u postgres pg_dumpall > "$BACKUP"/alldatabases.sql
-    fi
-fi
+#if is_this_installed postgresql-common
+#then
+#    cd /tmp
+#    if sudo -u postgres psql -c "SELECT 1 AS result FROM pg_database WHERE datname='$NCCONFIGDB'" | grep "1 row" > /dev/null
+#    then
+#        print_text_in_color "$ICyan" "Doing pgdump of $NCCONFIGDB..."
+#        check_command sudo -u postgres pg_dump "$NCCONFIGDB"  > "$BACKUP"/nextclouddb.sql
+#    else
+#        print_text_in_color "$ICyan" "Doing pgdump of all databases..."
+#        check_command sudo -u postgres pg_dumpall > "$BACKUP"/alldatabases.sql
+#   fi
+#fi
 
 # Prevent apps from breaking the update due to incompatibility
 # Fixes errors like https://github.com/nextcloud/vm/issues/1834
@@ -929,6 +929,7 @@ nextcloud_occ maintenance:update:htaccess
 bash $SECURE & spinner_loading
 
 # Repair
+read -p "Unmount data dir now and press any key"
 nextcloud_occ maintenance:repair
 
 # Create $VMLOGS dir
