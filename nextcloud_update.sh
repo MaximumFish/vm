@@ -929,7 +929,6 @@ nextcloud_occ maintenance:update:htaccess
 bash $SECURE & spinner_loading
 
 # Repair
-read -p "Unmount data dir now and press any key"
 nextcloud_occ maintenance:repair
 
 # Create $VMLOGS dir
