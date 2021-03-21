@@ -507,14 +507,14 @@ lowest_compatible_nc 13
 if [ -f /tmp/minor.version ]
 then
     NCBAD=$(cat /tmp/minor.version)
-    NCVERSION=20.0.8
+    NCVERSION=$(curl -s -m 900 $NCREPO/ | sed --silent 's/.*href="nextcloud-\([^"]\+\).zip.asc".*/\1/p' | sort --version-sort | grep "${CURRENTVERSION%%.*}" | tail -1)
     export NCVERSION
     export STABLEVERSION="nextcloud-$NCVERSION"
     rm -f /tmp/minor.version
 elif [ -f /tmp/nextmajor.version ]
 then
     NCBAD=$(cat /tmp/nextmajor.version)
-    NCVERSION=20.0.8
+    NCVERSION=$(curl -s -m 900 $NCREPO/ | sed --silent 's/.*href="nextcloud-\([^"]\+\).zip.asc".*/\1/p' | sort --version-sort | tail -1)
     if [ -z "$NCVERSION" ]
     then
         msg_box "The version that you are trying to upgrade to doesn't exist."
