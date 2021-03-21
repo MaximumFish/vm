@@ -78,10 +78,10 @@ then
     # Always chown root dir
     chown "${htuser}":"${htgroup}" "${NCDATA}"/
     # Check subdirs as well
-    if find "${NCDATA}" -maxdepth 2 -type d -exec stat --printf='%U:%G\n' {} \; | grep -v "${htuser}":"${htgroup}"
-    then
-        chown -R "${htuser}":"${htgroup}" "${NCDATA}"/
-    fi
+#    if find "${NCDATA}" -maxdepth 2 -type d -exec stat --printf='%U:%G\n' {} \; | grep -v "${htuser}":"${htgroup}"
+#    then
+#        chown -R "${htuser}":"${htgroup}" "${NCDATA}"/
+#    fi
 fi
 
 chmod +x "${NCPATH}"/occ
